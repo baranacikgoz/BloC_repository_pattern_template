@@ -21,11 +21,11 @@ class Strings {
 
   static const routeExceptionMessage = 'Route error!';
 
-  static const connectedWithWifi = 'Connected with Wi-Fi';
+  static const connectedWithWifi = 'Wi-Fi';
 
-  static const connectedWithCellular = 'Connected with Cellular data';
+  static const connectedWithCellular = 'Cellular data';
 
-  static const connectedWithEthernet = 'Connected with Ethernet';
+  static const connectedWithEthernet = 'Ethernet';
 
-  static const noInternetConnection = 'No internet connnection';
+  static const noInternetConnection = 'No internet connection';
 }

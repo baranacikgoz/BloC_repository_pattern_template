@@ -38,6 +38,7 @@ Column _buildBody(BuildContext context) {
           if (state is ConnectivityResultState) {
             return Text(
               "Connection Type: ${state.connectivityResult}",
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleLarge,
             );
           } else {
@@ -48,6 +49,7 @@ Column _buildBody(BuildContext context) {
       Text(
         "Using StreamSubsription",
         style: Theme.of(context).textTheme.bodySmall,
+        textAlign: TextAlign.center,
       ),
       const Padding(padding: EdgeInsets.only(top: 50)),
 
@@ -56,17 +58,24 @@ Column _buildBody(BuildContext context) {
           future: _hasWifiRtt,
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {
-              return Text(
-                "Wi-Fi Rtt support: ${snapshot.data}",
-                style: const TextStyle(fontSize: 20),
+              return Column(
+                children: [
+                  Text(
+                    "Wi-Fi Rtt support: ${snapshot.data}",
+                    style: const TextStyle(fontSize: 20),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    "Using FutureBuilder",
+                    style: Theme.of(context).textTheme.bodySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               );
             }
             return Container();
           }),
-      Text(
-        "Using FutureBuilder",
-        style: Theme.of(context).textTheme.bodySmall,
-      ),
+
       const Padding(padding: EdgeInsets.only(top: 100)),
 
       //! Info about hydrated cubit
@@ -80,12 +89,17 @@ Column _buildBody(BuildContext context) {
       //! Value of counter
       BlocBuilder<CounterCubit, int>(
         builder: (context, state) {
-          return Text("$state", style: const TextStyle(fontSize: 20));
+          return Text(
+            "$state",
+            style: const TextStyle(fontSize: 20),
+            textAlign: TextAlign.center,
+          );
         },
       ),
       Text(
         "Using BlocBuilder",
         style: Theme.of(context).textTheme.bodySmall,
+        textAlign: TextAlign.center,
       ),
       //! Increment and decrement buttons
       Row(
@@ -113,20 +127,21 @@ Column _buildBody(BuildContext context) {
 
       //! Go to second screen button
       TextButton(
-        onPressed: () => AppRouter.pushWithArgument(
-            context: context,
-            pageName: AppRouter.secondScreen,
-            args: SecondScreenArgs(
-                counterValue: context.read<CounterCubit>().state)),
-        child: Text(Strings.goToSecondScreenText,
-            style: Theme.of(context).primaryTextTheme.titleSmall),
-        style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all(Theme.of(context).primaryColor)),
-      ),
+          onPressed: () => AppRouter.pushWithArgument(
+              context: context,
+              pageName: AppRouter.secondScreen,
+              args: SecondScreenArgs(
+                  counterValue: context.read<CounterCubit>().state)),
+          child: const Text(
+            Strings.goToSecondScreenText,
+            textAlign: TextAlign.center,
+            //style: Theme.of(context).primaryTextTheme.titleSmall
+          ),
+          style: Theme.of(context).textButtonTheme.style),
       Text(
         "Using Router",
         style: Theme.of(context).textTheme.bodySmall,
+        textAlign: TextAlign.center,
       ),
     ],
   );
