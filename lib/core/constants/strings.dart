@@ -12,7 +12,7 @@ class Strings {
   static const onDecrementedText = 'Decremented';
 
   static const counterValueInfo =
-      'This counter value will remain the same even if you close and re-open app since it is an hydrated bloc.';
+      'This counter value will remain the same even if you close and re-open app since it is an hydrated cubit.';
 
   static const secondScreenInfo =
       "This is the second screen. The counter value is passed via screen args.";

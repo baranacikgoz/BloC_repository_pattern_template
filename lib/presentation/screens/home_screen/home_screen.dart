@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/presentation/independent_widgets/custom_snackbar.dart';
 import 'package:flutter_project_template/presentation/router/app_router.dart';
 import 'package:flutter_project_template/presentation/router/screen_args.dart';
+import 'package:has_wifi_rtt/has_wifi_rtt.dart';
 
 import '../../../core/constants/icons.dart';
 import '../../../core/constants/strings.dart';
@@ -25,9 +26,13 @@ class HomeScreen extends StatelessWidget {
 }
 
 Column _buildBody(BuildContext context) {
+  Future<bool> _hasWifiRtt = HasWifiRtt.checkRtt();
+
   return Column(
     children: [
       const Padding(padding: EdgeInsets.only(top: 50)),
+
+      //! Internet connection type
       BlocBuilder<InternetConnectivityCubit, InternetConnectivityState>(
         builder: (context, state) {
           if (state is ConnectivityResultState) {
@@ -40,18 +45,49 @@ Column _buildBody(BuildContext context) {
           }
         },
       ),
-      const Padding(padding: EdgeInsets.only(top: 150)),
+      Text(
+        "Using StreamSubsription",
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
+      const Padding(padding: EdgeInsets.only(top: 50)),
+
+      //! Wi-Fi Rtt support check
+      FutureBuilder<bool>(
+          future: _hasWifiRtt,
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                "Wi-Fi Rtt support: ${snapshot.data}",
+                style: const TextStyle(fontSize: 20),
+              );
+            }
+            return Container();
+          }),
+      Text(
+        "Using FutureBuilder",
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
+      const Padding(padding: EdgeInsets.only(top: 100)),
+
+      //! Info about hydrated cubit
       const Text(
         Strings.counterValueInfo,
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 20),
       ),
       const Padding(padding: EdgeInsets.only(top: 50)),
+
+      //! Value of counter
       BlocBuilder<CounterCubit, int>(
         builder: (context, state) {
           return Text("$state", style: const TextStyle(fontSize: 20));
         },
       ),
+      Text(
+        "Using BlocBuilder",
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
+      //! Increment and decrement buttons
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -74,6 +110,8 @@ Column _buildBody(BuildContext context) {
         ],
       ),
       const Padding(padding: EdgeInsets.only(top: 100)),
+
+      //! Go to second screen button
       TextButton(
         onPressed: () => AppRouter.pushWithArgument(
             context: context,
@@ -85,7 +123,11 @@ Column _buildBody(BuildContext context) {
         style: ButtonStyle(
             backgroundColor:
                 MaterialStateProperty.all(Theme.of(context).primaryColor)),
-      )
+      ),
+      Text(
+        "Using Router",
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
     ],
   );
 }
