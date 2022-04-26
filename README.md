@@ -1,5 +1,5 @@
 # Flutter Project Template Using BloC
-<img src="assets/app_demo.gif" alt="Demo gif"/>  
+<img src="assets/app_demo.gif" alt="Demo gif" width=300 height=600/>  
 
 ## Implementations
 * Theme switching
