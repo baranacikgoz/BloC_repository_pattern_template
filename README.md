@@ -1,5 +1,5 @@
 # Flutter Project Template Using BloC
-<img src="assets/app_demo.gif" alt="Demo gif" width=300 height=600/>  
+<img src="assets/app_demo.gif" alt="Demo gif" width=300 height=650/>  
 
 ## Implementations
 * Theme switching
@@ -30,4 +30,4 @@ Open ```info.plist``` located at ```ios/Runner```
 ***And than***  ```flutter clean```
 
 ### Contributing
-Feel free to make pull requests.
+Feel free to make contributions and pull requests.
