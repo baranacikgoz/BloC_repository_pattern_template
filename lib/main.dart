@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project_template/core/themes/app_theme.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'core/constants/instances.dart';
 import 'core/constants/strings.dart';
 import 'core/debug/app_bloc_observer.dart';
 import 'logic/counter/cubit/counter_cubit.dart';
@@ -20,12 +22,14 @@ Future<void> main() async {
         : await getApplicationDocumentsDirectory(),
   );
 
-  HydratedBlocOverrides.runZoned(() => runApp(const App()),
+  HydratedBlocOverrides.runZoned(() => runApp(App()),
       storage: storage, blocObserver: AppBlocObserver());
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  final osThemeIsLight =
+      schedularBindingInstance.window.platformBrightness == Brightness.light;
+  App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,16 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => InternetConnectivityCubit()),
         BlocProvider(create: (context) => CounterCubit()),
-        BlocProvider(create: (context) => ThemeCubit())
+
+        // If Android/IOS theme of the device is light, start app with light theme,
+        // else start app with dark theme
+        osThemeIsLight
+            ? BlocProvider(
+                create: (context) =>
+                    ThemeCubit(initialTheme: AppTheme.lightTheme))
+            : BlocProvider(
+                create: (context) =>
+                    ThemeCubit(initialTheme: AppTheme.darkTheme))
       ],
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (context, state) {

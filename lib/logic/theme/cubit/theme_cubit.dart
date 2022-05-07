@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import '../../../core/themes/app_theme.dart';
 
 class ThemeCubit extends Cubit<ThemeData> {
-  ThemeCubit() : super(AppTheme.lightTheme);
+  final ThemeData initialTheme;
+
+  ThemeCubit({required this.initialTheme}) : super(initialTheme);
 
   void switchTheme() {
     state == AppTheme.lightTheme
