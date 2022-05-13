@@ -34,31 +34,26 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => InternetConnectivityCubit()),
-        BlocProvider(create: (context) => CounterCubit()),
+        providers: [
+          BlocProvider(create: (context) => InternetConnectivityCubit()),
+          BlocProvider(create: (context) => CounterCubit()),
 
-        // If Android/IOS theme of the device is light, start app with light theme,
-        // else start app with dark theme
-        osThemeIsLight
-            ? BlocProvider(
-                create: (context) =>
-                    ThemeCubit(initialTheme: AppTheme.lightTheme))
-            : BlocProvider(
-                create: (context) =>
-                    ThemeCubit(initialTheme: AppTheme.darkTheme))
-      ],
-      child: BlocBuilder<ThemeCubit, ThemeData>(
-        builder: (context, state) {
-          return MaterialApp(
-            title: Strings.appTitle,
-            theme: state,
-            debugShowCheckedModeBanner: false,
-            initialRoute: AppRouter.homeScreen,
-            onGenerateRoute: AppRouter.onGenerateRoute,
-          );
-        },
-      ),
-    );
+          // If Android/IOS theme of the device is light, start app with light theme,
+          // else start app with dark theme
+          osThemeIsLight
+              ? BlocProvider(
+                  create: (context) =>
+                      ThemeCubit(initialTheme: AppTheme.lightTheme))
+              : BlocProvider(
+                  create: (context) =>
+                      ThemeCubit(initialTheme: AppTheme.darkTheme))
+        ],
+        child: MaterialApp(
+          title: Strings.appTitle,
+          theme: BlocProvider.of<ThemeCubit>(context, listen: true).state,
+          debugShowCheckedModeBanner: false,
+          initialRoute: AppRouter.homeScreen,
+          onGenerateRoute: AppRouter.onGenerateRoute,
+        ));
   }
 }
