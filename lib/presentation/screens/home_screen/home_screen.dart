@@ -10,7 +10,7 @@ import '../../../core/constants/strings.dart';
 import '../../../core/themes/app_theme.dart';
 import '../../../logic/counter/cubit/counter_cubit.dart';
 import '../../../logic/internet_connectivity/cubit/internet_connectivity_cubit.dart';
-import '../../../logic/theme/cubit/theme_cubit.dart';
+import '../../../logic/switch_theme/cubit/switch_theme_cubit.dart';
 import '../../independent_widgets/custom_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -149,16 +149,16 @@ Column _buildBody(BuildContext context) {
 
 List<Widget> _buildAppBarActions(BuildContext context) {
   return [
-    context.read<ThemeCubit>().state == AppTheme.lightTheme
+    context.read<SwitchThemeCubit>().state == AppTheme.lightTheme
         ? AppIcons.darkMode
         : AppIcons.lightMode,
     Switch(
         activeColor: Colors.white,
-        value: context.read<ThemeCubit>().state == AppTheme.lightTheme
+        value: context.read<SwitchThemeCubit>().state == AppTheme.lightTheme
             ? true
             : false,
         onChanged: (value) {
-          context.read<ThemeCubit>().switchTheme();
+          context.read<SwitchThemeCubit>().switchTheme();
         })
   ];
 }

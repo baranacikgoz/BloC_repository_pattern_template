@@ -10,7 +10,7 @@ import 'core/constants/strings.dart';
 import 'core/debug/app_bloc_observer.dart';
 import 'logic/counter/cubit/counter_cubit.dart';
 import 'logic/internet_connectivity/cubit/internet_connectivity_cubit.dart';
-import 'logic/theme/cubit/theme_cubit.dart';
+import 'logic/switch_theme/cubit/switch_theme_cubit.dart';
 import 'presentation/router/app_router.dart';
 
 Future<void> main() async {
@@ -43,15 +43,16 @@ class App extends StatelessWidget {
           osThemeIsLight
               ? BlocProvider(
                   create: (context) =>
-                      ThemeCubit(initialTheme: AppTheme.lightTheme))
+                      SwitchThemeCubit(initialTheme: AppTheme.lightTheme))
               : BlocProvider(
                   create: (context) =>
-                      ThemeCubit(initialTheme: AppTheme.darkTheme))
+                      SwitchThemeCubit(initialTheme: AppTheme.darkTheme))
         ],
         child: Builder(builder: (context) {
           return MaterialApp(
             title: Strings.appTitle,
-            theme: BlocProvider.of<ThemeCubit>(context, listen: true).state,
+            theme:
+                BlocProvider.of<SwitchThemeCubit>(context, listen: true).state,
             debugShowCheckedModeBanner: false,
             initialRoute: AppRouter.homeScreen,
             onGenerateRoute: AppRouter.onGenerateRoute,
