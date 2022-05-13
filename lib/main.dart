@@ -48,12 +48,14 @@ class App extends StatelessWidget {
                   create: (context) =>
                       ThemeCubit(initialTheme: AppTheme.darkTheme))
         ],
-        child: MaterialApp(
-          title: Strings.appTitle,
-          theme: BlocProvider.of<ThemeCubit>(context, listen: true).state,
-          debugShowCheckedModeBanner: false,
-          initialRoute: AppRouter.homeScreen,
-          onGenerateRoute: AppRouter.onGenerateRoute,
-        ));
+        child: Builder(builder: (context) {
+          return MaterialApp(
+            title: Strings.appTitle,
+            theme: BlocProvider.of<ThemeCubit>(context, listen: true).state,
+            debugShowCheckedModeBanner: false,
+            initialRoute: AppRouter.homeScreen,
+            onGenerateRoute: AppRouter.onGenerateRoute,
+          );
+        }));
   }
 }
