@@ -19,8 +19,7 @@ class AppRouter {
 
       case secondScreen:
         return MaterialPageRoute(
-            builder: (_) =>
-                SecondScreen(args: settings.arguments as SecondScreenArgs));
+            builder: (_) => SecondScreen(args: settings.arguments as SecondScreenArgs));
 
       default:
         throw const RouteException(Strings.routeExceptionMessage);
@@ -30,8 +29,8 @@ class AppRouter {
   //! Custom navigaton methods. If you want to change the way of navigating,
   //! you don't have to change it from everywhere, just change inside the functions
 
-  //! Removes all screens and then pushes the screen
-  static pushNamedAndRemoveUntil({
+  //! Removes all screens and then pushes the given screen
+  static pushThisRemoveRest({
     required BuildContext context,
     required String pageName,
   }) {
@@ -49,11 +48,9 @@ class AppRouter {
     Navigator.of(context).pushNamedAndRemoveUntil(pageName, (route) => false);
   }
 
-  //! Removes all screens and then pushes the screen with arguments
-  static pushNamedAndRemoveUntilWithArguments(
-      {required BuildContext context,
-      required String pageName,
-      required Object args}) {
+  //! Removes all screens and then pushes the given screen with arguments
+  static pushThisRemoveRestWithArguments(
+      {required BuildContext context, required String pageName, required Object args}) {
     // If navigator can remove current screen, removes it
     if (Navigator.of(context).canPop()) {
       Navigator.of(context).pushNamedAndRemoveUntil(
@@ -74,9 +71,7 @@ class AppRouter {
 
   //! Pushes given page with arguments
   static pushWithArgument(
-      {required BuildContext context,
-      required String pageName,
-      required args}) {
+      {required BuildContext context, required String pageName, required args}) {
     Navigator.of(context).pushNamed(pageName, arguments: args);
   }
 }
