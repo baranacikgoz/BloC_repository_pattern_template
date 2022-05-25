@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-Column _buildBody(BuildContext context) {
+Widget _buildBody(BuildContext context) {
   Future<bool> _hasWifiRtt = HasWifiRtt.checkRtt();
 
   return Column(
@@ -47,7 +47,7 @@ Column _buildBody(BuildContext context) {
         style: Theme.of(context).textTheme.bodySmall,
         textAlign: TextAlign.center,
       ),
-      const Padding(padding: EdgeInsets.only(top: 50)),
+      const Padding(padding: EdgeInsets.only(top: 20)),
 
       //! Wi-Fi Rtt support check
       FutureBuilder<bool>(
@@ -72,7 +72,7 @@ Column _buildBody(BuildContext context) {
             return Container();
           }),
 
-      const Padding(padding: EdgeInsets.only(top: 100)),
+      const Padding(padding: EdgeInsets.only(top: 50)),
 
       //! Info about hydrated cubit
       const Text(
@@ -80,7 +80,7 @@ Column _buildBody(BuildContext context) {
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 20),
       ),
-      const Padding(padding: EdgeInsets.only(top: 50)),
+      const Padding(padding: EdgeInsets.only(top: 20)),
 
       //! Value of counter
       BlocBuilder<CounterCubit, int>(
@@ -119,7 +119,7 @@ Column _buildBody(BuildContext context) {
               }),
         ],
       ),
-      const Padding(padding: EdgeInsets.only(top: 100)),
+      const Padding(padding: EdgeInsets.only(top: 50)),
 
       //! Go to second screen button
       TextButton(
