@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_template/core/constants/strings.dart';
-import 'package:flutter_project_template/presentation/independent_widgets/custom_app_bar.dart';
+import 'package:flutter_project_template/presentation/independent_widgets/general_app_bar.dart';
 
 import 'package:flutter_project_template/presentation/router/screen_args.dart';
 
@@ -15,7 +15,7 @@ class SecondScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: Strings.secondScreenTitle, actions: []),
+      appBar: const GeneralAppBar(title: Strings.secondScreenTitle),
       body: _buildBody(context, args.counterValue),
     );
   }

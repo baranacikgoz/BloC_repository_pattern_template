@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_template/presentation/independent_widgets/custom_snackbar.dart';
+import 'package:flutter_project_template/presentation/independent_widgets/general_app_bar.dart';
 import 'package:flutter_project_template/presentation/router/app_router.dart';
 import 'package:flutter_project_template/presentation/router/screen_args.dart';
 import 'package:has_wifi_rtt/has_wifi_rtt.dart';
 
 import '../../../core/constants/icons.dart';
 import '../../../core/constants/strings.dart';
-import '../../../core/themes/app_theme.dart';
+
 import '../../../logic/counter/cubit/counter_cubit.dart';
 import '../../../logic/internet_connectivity/cubit/internet_connectivity_cubit.dart';
-import '../../../logic/switch_theme/cubit/switch_theme_cubit.dart';
-import '../../independent_widgets/custom_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(
-          title: Strings.homeScreenTitle,
-          actions: _buildAppBarActions(context),
-        ),
+        appBar: const GeneralAppBar(title: Strings.homeScreenTitle),
         body: _buildBody(context));
   }
 }
@@ -130,8 +126,7 @@ Column _buildBody(BuildContext context) {
           onPressed: () => AppRouter.pushWithArgument(
               context: context,
               pageName: AppRouter.secondScreen,
-              args: SecondScreenArgs(
-                  counterValue: context.read<CounterCubit>().state)),
+              args: SecondScreenArgs(counterValue: context.read<CounterCubit>().state)),
           child: const Text(
             Strings.goToSecondScreenText,
             textAlign: TextAlign.center,
@@ -145,20 +140,4 @@ Column _buildBody(BuildContext context) {
       ),
     ],
   );
-}
-
-List<Widget> _buildAppBarActions(BuildContext context) {
-  return [
-    context.read<SwitchThemeCubit>().state == AppTheme.lightTheme
-        ? AppIcons.darkMode
-        : AppIcons.lightMode,
-    Switch(
-        activeColor: Colors.white,
-        value: context.read<SwitchThemeCubit>().state == AppTheme.lightTheme
-            ? true
-            : false,
-        onChanged: (value) {
-          context.read<SwitchThemeCubit>().switchTheme();
-        })
-  ];
 }
