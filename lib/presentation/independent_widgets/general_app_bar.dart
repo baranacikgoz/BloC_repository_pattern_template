@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_project_template/core/constants/strings.dart';
-
 import '../../core/constants/icons.dart';
 import '../../core/themes/app_theme.dart';
 import '../../logic/switch_theme/cubit/switch_theme_cubit.dart';
@@ -36,7 +34,7 @@ List<Widget> _buildAppBarActions(BuildContext context) {
     Switch(
         activeColor: Colors.white,
         value:
-            context.read<SwitchThemeCubit>().state == AppTheme.lightTheme ? true : false,
+            context.watch<SwitchThemeCubit>().state == AppTheme.lightTheme ? true : false,
         onChanged: (value) {
           context.read<SwitchThemeCubit>().switchTheme();
         })
