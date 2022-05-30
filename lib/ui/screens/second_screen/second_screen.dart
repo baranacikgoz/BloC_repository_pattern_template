@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/core/constants/strings.dart';
 
+import '../../../core/constants/strings.dart';
 import '../../app_router/screen_args.dart';
 import '../../independent_widgets/general_app_bar.dart';
 
