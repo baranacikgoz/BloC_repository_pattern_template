@@ -2,6 +2,7 @@
 <img src="assets/app_demo.gif" alt="Demo gif" width=300 height=650/>  
 
 ## Implementations
+* Repository pattern and repository provider
 * Theme switching
 * Advanced Routing
 * Bloc Observer for debugging
