@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/app_router/screen_args.dart';
 import '../../../core/constants/strings.dart';
-import '../../app_router/screen_args.dart';
 import '../../independent_widgets/general_app_bar.dart';
 
 class SecondScreen extends StatelessWidget {
