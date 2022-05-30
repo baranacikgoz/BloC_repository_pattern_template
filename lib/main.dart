@@ -11,7 +11,7 @@ import 'core/debug/app_bloc_observer.dart';
 import 'logic/counter/cubit/counter_cubit.dart';
 import 'logic/internet_connectivity/cubit/internet_connectivity_cubit.dart';
 import 'logic/switch_theme/cubit/switch_theme_cubit.dart';
-import 'presentation/ui/app_router.dart';
+import 'ui/app_router/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

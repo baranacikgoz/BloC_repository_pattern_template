@@ -7,10 +7,10 @@ import '../../../core/constants/strings.dart';
 
 import '../../../logic/counter/cubit/counter_cubit.dart';
 import '../../../logic/internet_connectivity/cubit/internet_connectivity_cubit.dart';
+import '../../app_router/app_router.dart';
+import '../../app_router/screen_args.dart';
 import '../../independent_widgets/custom_snackbar.dart';
 import '../../independent_widgets/general_app_bar.dart';
-import '../../ui/app_router.dart';
-import '../../ui/screen_args.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
