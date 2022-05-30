@@ -1,22 +1,31 @@
+import 'package:flutter_project_template/repositories/counter_repository.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 //! Hydrated cubit will store counter's last value therefore it will remain
 //! the same when you closed and re-open app.
 class CounterCubit extends HydratedCubit<int> {
-  CounterCubit() : super(0);
+  final CounterRepository _counterRepository;
 
-  void increment() {
-    //! increase counter by 1 and emit new value
-    _emitCounterValue(state + 1);
+  // Current value
+  late int _currentValue;
+
+  CounterCubit(this._counterRepository) : super(0) {
+    // Initialize current value
+    _currentValue = state;
   }
 
-  void decrement() {
-    //! decrement counter by 1 and emit new value
-    _emitCounterValue(state - 1);
+  //! increase _currentValue by 1 and emit new value
+  void onIncrement() {
+    _counterRepository.increment(valueToIncrement: _currentValue, incrementBy: 1);
+
+    emit(_currentValue);
   }
 
-  _emitCounterValue(int value) {
-    emit(value);
+  //! decrement counter by 1 and emit new value
+  void onDecrement() {
+    _counterRepository.increment(valueToIncrement: _currentValue, incrementBy: 1);
+
+    emit(_currentValue);
   }
 
   @override

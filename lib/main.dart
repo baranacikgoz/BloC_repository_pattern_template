@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project_template/repositories/counter_repository.dart';
 import 'core/themes/app_theme.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,28 +34,43 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => InternetConnectivityCubit()),
-          BlocProvider(create: (context) => CounterCubit()),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          //! Create Counter Repository instance
+          create: (context) => CounterRepository(),
+        ),
+        // RepositoryProvider(
+        //   create: (context) => AnotherRepository(),
+        // ),
+      ],
+      child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => InternetConnectivityCubit()),
 
-          // If Android/IOS theme of the device is light, start app with light theme,
-          // else start app with dark theme
-          osThemeIsLight
-              ? BlocProvider(
-                  create: (context) =>
-                      SwitchThemeCubit(initialTheme: AppTheme.lightTheme))
-              : BlocProvider(
-                  create: (context) => SwitchThemeCubit(initialTheme: AppTheme.darkTheme))
-        ],
-        child: Builder(builder: (context) {
-          return MaterialApp(
-            title: Strings.appTitle,
-            theme: BlocProvider.of<SwitchThemeCubit>(context, listen: true).state,
-            debugShowCheckedModeBanner: false,
-            initialRoute: AppRouter.homeScreen,
-            onGenerateRoute: AppRouter.onGenerateRoute,
-          );
-        }));
+            BlocProvider(
+                //! context.read<CounterRepository>()
+                create: (context) => CounterCubit(context.read<CounterRepository>())),
+
+            // If Android/IOS theme of the device is light, start app with light theme,
+            // else start app with dark theme
+            osThemeIsLight
+                ? BlocProvider(
+                    create: (context) =>
+                        SwitchThemeCubit(initialTheme: AppTheme.lightTheme))
+                : BlocProvider(
+                    create: (context) =>
+                        SwitchThemeCubit(initialTheme: AppTheme.darkTheme))
+          ],
+          child: Builder(builder: (context) {
+            return MaterialApp(
+              title: Strings.appTitle,
+              theme: BlocProvider.of<SwitchThemeCubit>(context, listen: true).state,
+              debugShowCheckedModeBanner: false,
+              initialRoute: AppRouter.homeScreen,
+              onGenerateRoute: AppRouter.onGenerateRoute,
+            );
+          })),
+    );
   }
 }

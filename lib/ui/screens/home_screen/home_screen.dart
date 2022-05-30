@@ -106,7 +106,7 @@ Widget _buildBody(BuildContext context) {
               heroTag: "decrement",
               child: AppIcons.decrement,
               onPressed: () {
-                context.read<CounterCubit>().decrement();
+                context.read<CounterCubit>().onDecrement();
                 CustomSnackbar.showSnackbarWithAction(
                     context: context, message: Strings.onDecrementedText);
               }),
@@ -114,7 +114,7 @@ Widget _buildBody(BuildContext context) {
               heroTag: "increment",
               child: AppIcons.increment,
               onPressed: () {
-                context.read<CounterCubit>().increment();
+                context.read<CounterCubit>().onIncrement();
                 CustomSnackbar.showSnackbarWithAction(
                     context: context, message: Strings.onIncrementedText);
               }),
