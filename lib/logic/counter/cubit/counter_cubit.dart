@@ -6,26 +6,22 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 class CounterCubit extends HydratedCubit<int> {
   final CounterRepository _counterRepository;
 
-  // Current value
-  late int _currentValue;
-
-  CounterCubit(this._counterRepository) : super(0) {
-    // Initialize current value
-    _currentValue = state;
-  }
+  CounterCubit(this._counterRepository) : super(0);
 
   //! increase _currentValue by 1 and emit new value
   void onIncrement() {
-    _counterRepository.increment(valueToIncrement: _currentValue, incrementBy: 1);
+    int currentValue =
+        _counterRepository.increment(valueToIncrement: state, incrementBy: 1);
 
-    emit(_currentValue);
+    emit(currentValue);
   }
 
   //! decrement counter by 1 and emit new value
   void onDecrement() {
-    _counterRepository.increment(valueToIncrement: _currentValue, incrementBy: 1);
+    int currentValue =
+        _counterRepository.decrement(valueToDecrement: state, decrementBy: 1);
 
-    emit(_currentValue);
+    emit(currentValue);
   }
 
   @override

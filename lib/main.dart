@@ -40,6 +40,8 @@ class App extends StatelessWidget {
           //! Create Counter Repository instance
           create: (context) => CounterRepository(),
         ),
+
+        //! Another repository comes here
         // RepositoryProvider(
         //   create: (context) => AnotherRepository(),
         // ),
