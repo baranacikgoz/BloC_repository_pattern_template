@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_project_template/presentation/independent_widgets/custom_snackbar.dart';
-import 'package:flutter_project_template/presentation/independent_widgets/general_app_bar.dart';
-import 'package:flutter_project_template/presentation/router/app_router.dart';
-import 'package:flutter_project_template/presentation/router/screen_args.dart';
 import 'package:has_wifi_rtt/has_wifi_rtt.dart';
 
 import '../../../core/constants/icons.dart';
@@ -11,6 +7,10 @@ import '../../../core/constants/strings.dart';
 
 import '../../../logic/counter/cubit/counter_cubit.dart';
 import '../../../logic/internet_connectivity/cubit/internet_connectivity_cubit.dart';
+import '../../independent_widgets/custom_snackbar.dart';
+import '../../independent_widgets/general_app_bar.dart';
+import '../../ui/app_router.dart';
+import '../../ui/screen_args.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

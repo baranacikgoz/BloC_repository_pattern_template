@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_template/presentation/router/screen_args.dart';
-import 'package:flutter_project_template/presentation/screens/second_screen/second_screen.dart';
 
 import '../../core/constants/strings.dart';
 import '../../core/exceptions/route_exception.dart';
 import '../screens/home_screen/home_screen.dart';
+import '../screens/second_screen/second_screen.dart';
+import 'screen_args.dart';
 
 class AppRouter {
   static const String homeScreen = '/';

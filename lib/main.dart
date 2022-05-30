@@ -11,7 +11,7 @@ import 'core/debug/app_bloc_observer.dart';
 import 'logic/counter/cubit/counter_cubit.dart';
 import 'logic/internet_connectivity/cubit/internet_connectivity_cubit.dart';
 import 'logic/switch_theme/cubit/switch_theme_cubit.dart';
-import 'presentation/router/app_router.dart';
+import 'presentation/ui/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,14 +45,12 @@ class App extends StatelessWidget {
                   create: (context) =>
                       SwitchThemeCubit(initialTheme: AppTheme.lightTheme))
               : BlocProvider(
-                  create: (context) =>
-                      SwitchThemeCubit(initialTheme: AppTheme.darkTheme))
+                  create: (context) => SwitchThemeCubit(initialTheme: AppTheme.darkTheme))
         ],
         child: Builder(builder: (context) {
           return MaterialApp(
             title: Strings.appTitle,
-            theme:
-                BlocProvider.of<SwitchThemeCubit>(context, listen: true).state,
+            theme: BlocProvider.of<SwitchThemeCubit>(context, listen: true).state,
             debugShowCheckedModeBanner: false,
             initialRoute: AppRouter.homeScreen,
             onGenerateRoute: AppRouter.onGenerateRoute,
