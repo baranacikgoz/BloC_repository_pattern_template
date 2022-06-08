@@ -33,7 +33,7 @@ class CustomSnackbar {
 
   /// Shows snackbar with message only, no action button.
   static void showSnackbarWithTimedMessage(
-      {required BuildContext context, required String message, int milliseconds = 2200}) {
+      {required BuildContext context, required String message, int milliseconds = 2500}) {
     _removeCurrentSnackbar(context: context);
 
     ScaffoldMessenger.of(context).showSnackBar(
