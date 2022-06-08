@@ -166,16 +166,20 @@ Widget _buildBody(BuildContext context) {
               child: AppIcons.decrement,
               onPressed: () {
                 context.read<CounterCubit>().onDecrement();
-                CustomSnackbar.showSnackbarWithAction(
-                    context: context, message: Strings.onDecrementedText);
+                CustomSnackbar.showSnackbarWithTimedMessage(
+                    context: context,
+                    message: Strings.onDecrementedText,
+                    milliseconds: 1500);
               }),
           FloatingActionButton(
               heroTag: "increment",
               child: AppIcons.increment,
               onPressed: () {
                 context.read<CounterCubit>().onIncrement();
-                CustomSnackbar.showSnackbarWithAction(
-                    context: context, message: Strings.onIncrementedText);
+                CustomSnackbar.showSnackbarWithTimedMessage(
+                    context: context,
+                    message: Strings.onIncrementedText,
+                    milliseconds: 1500);
               }),
         ],
       ),
