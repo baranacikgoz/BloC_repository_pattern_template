@@ -7,10 +7,10 @@ import '../../../core/app_router/screen_args.dart';
 import '../../../core/constants/icons.dart';
 import '../../../core/constants/strings.dart';
 
-import 'cubits/counter_cubits/counter_cubit.dart';
-
 import '../../independent_widgets/custom_snackbar.dart';
 import '../../independent_widgets/general_app_bar.dart';
+import 'blocs/bloc/crypto_bloc.dart';
+import 'cubits/counter/counter_cubit.dart';
 import 'cubits/internet_connectivity/internet_connectivity_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -58,28 +58,59 @@ Widget _buildBody(BuildContext context) {
       ),
       const Padding(padding: EdgeInsets.only(top: 20)),
 
-      // //! Wi-Fi Rtt support check
-      // FutureBuilder<bool>(
-      //     future: _hasWifiRtt,
-      //     builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-      //       if (snapshot.hasData) {
-      //         return Column(
-      //           children: [
-      //             Text(
-      //               "Wi-Fi Rtt support: ${snapshot.data}",
-      //               style: const TextStyle(fontSize: 20),
-      //               textAlign: TextAlign.center,
-      //             ),
-      //             Text(
-      //               "Using FutureBuilder",
-      //               style: Theme.of(context).textTheme.bodySmall,
-      //               textAlign: TextAlign.center,
-      //             ),
-      //           ],
-      //         );
-      //       }
-      //       return Container();
-      //     }),
+      Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        elevation: 8,
+        margin: const EdgeInsets.only(left: 7, top: 6, bottom: 12, right: 7),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(padding: EdgeInsets.all(5)),
+            BlocConsumer<CryptoBloc, CryptoState>(
+              listener: (context, state) {
+                if (state is ErrorCryptoData) {
+                  CustomSnackbar.showSnackbarWithTimedMessage(
+                      context: context, message: state.message);
+                }
+              },
+              builder: (context, state) {
+                return BlocBuilder<CryptoBloc, CryptoState>(
+                  builder: (context, state) {
+                    if (state is ReceivedCryptoData) {
+                      final price = state.cryptoData.price;
+                      final isIncreased = state.isIncreased;
+
+                      return ListTile(
+                        title: const Text("BTC / USDT}",
+                            maxLines: 1, style: TextStyle(fontSize: 25)),
+                        subtitle: Text("$price",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color:
+                                    isIncreased ? Colors.greenAccent : Colors.redAccent,
+                                fontSize: 50,
+                                fontWeight: FontWeight.w300)),
+                      );
+                    } else if (state is CryptoInitial) {
+                      return const ListTile(
+                        title: Text("BTC / USDT}",
+                            maxLines: 1, style: TextStyle(fontSize: 25)),
+                        subtitle: Text(Strings.refreshToSeeThePrice,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 50, fontWeight: FontWeight.w300)),
+                      );
+                    } else if (state is FetchingCryptoData) {
+                      return const CircularProgressIndicator();
+                    }
+
+                    return const SizedBox();
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+      ),
 
       const Padding(padding: EdgeInsets.only(top: 50)),
 

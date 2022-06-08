@@ -31,6 +31,11 @@ class BinanceApiException implements Exception {
 
     return BinanceApiException(message: "Binance Unknown exception");
   }
+
+  @override
+  String toString() {
+    return message;
+  }
 }
 
 class CryptoRepository {
@@ -51,22 +56,17 @@ class CryptoRepository {
     HttpHeaders.contentTypeHeader: 'application/json',
   };
 
-  static const bitcoin = 'BTC';
-
-  static const usdt = 'USDT';
-
-  Future<CryptoModel> cryptoPairMomentaryData(String coin1, String coin2) async {
-    final rawJsonBody = await _cryptoPairMomentaryData(coin1, coin2);
+  Future<CryptoModel> btcUsdtMomentaryData() async {
+    final rawJsonBody = await _btcUsdtMomentaryData();
 
     final CryptoModel pair = CryptoModel.fromJson(rawJsonBody);
 
     return pair;
   }
 
-  Future<String> _cryptoPairMomentaryData(String coin1, String coin2) async {
-    final http.Response response = await http.get(
-        Uri.parse("$_binanceBaseApiUrl/ticker/price?$coin1$coin2"),
-        headers: _headers);
+  Future<String> _btcUsdtMomentaryData() async {
+    final http.Response response = await http
+        .get(Uri.parse("$_binanceBaseApiUrl/ticker/price?BTCUSDT"), headers: _headers);
 
     if (response.statusCode == 200) {
       return response.body;

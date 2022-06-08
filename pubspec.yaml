@@ -28,18 +28,17 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   connectivity_plus: ^2.3.0
+  counter_repository:
+    path: repositories/counter_repository
+  crypto_repository:
+    path: repositories/crypto_repository
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   hydrated_bloc: ^8.1.0
   path_provider: ^2.0.9
-
-  counter_repository:
-    path: repositories/counter_repository
-
-  crypto_repository:
-    path: repositories/crypto_repository
 
 dev_dependencies:
   flutter_lints: ^1.0.0

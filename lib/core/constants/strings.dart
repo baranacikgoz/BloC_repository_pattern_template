@@ -28,4 +28,6 @@ class Strings {
   static const connectedWithEthernet = 'Ethernet';
 
   static const noInternetConnection = 'No internet connection';
+
+  static const refreshToSeeThePrice = 'Refresh to see the price !';
 }
