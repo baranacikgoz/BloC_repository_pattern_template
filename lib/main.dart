@@ -60,7 +60,7 @@ class App extends StatelessWidget {
           child: Builder(builder: (context) {
             return MaterialApp(
               title: Strings.appTitle,
-              theme: BlocProvider.of<SwitchThemeCubit>(context, listen: true).state,
+              theme: context.watch<SwitchThemeCubit>().state,
               debugShowCheckedModeBanner: false,
               initialRoute: AppRouter.homeScreen,
               onGenerateRoute: AppRouter.onGenerateRoute,
