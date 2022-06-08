@@ -45,10 +45,8 @@ class CryptoRepository {
 
   static const String _binanceBaseApiUrl = 'https://api.binance.com/api/v3';
 
-  static const String _apiKey =
-      'WhjSOGCVcy1rDXRCGSzo0fB95rBPuk8nPdk451XqnPLk1PKNbPOkBo4Rjk0xPQHO';
-  static const String _apiSecretKey =
-      'b61577b6cf53b2cb89203405e4a81cb444d9f1c846bd68fb3e8646d0aa86f7cc';
+  static const String _apiKey = 'YOUR API KEY HERE';
+  static const String _apiSecretKey = 'YOUR SECRET API KEY HERE';
 
   static const Map<String, String> _headers = {
     'binance-api-key': _apiKey,
