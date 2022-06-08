@@ -2,7 +2,7 @@ class CounterRepository {
   CounterRepository._();
 
   // Singleton pattern
-  static final CounterRepository instance = CounterRepository._();
+  static final instance = CounterRepository._();
 
   // Take a value, increment it.
   int increment({required int valueToIncrement, required int incrementBy}) {
