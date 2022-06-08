@@ -7,7 +7,7 @@ import '../../../core/app_router/screen_args.dart';
 import '../../../core/constants/icons.dart';
 import '../../../core/constants/strings.dart';
 
-import 'cubits/counter_cubit/counter_cubit.dart';
+import 'cubits/counter_cubits/counter_cubit.dart';
 
 import '../../independent_widgets/custom_snackbar.dart';
 import '../../independent_widgets/general_app_bar.dart';
