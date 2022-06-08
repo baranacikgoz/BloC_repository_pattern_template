@@ -1,3 +1,4 @@
+import 'package:counter_repository/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,18 +7,28 @@ import '../../../core/app_router/screen_args.dart';
 import '../../../core/constants/icons.dart';
 import '../../../core/constants/strings.dart';
 
-import '../../../logic/counter/cubit/counter_cubit.dart';
-import '../../../logic/internet_connectivity/cubit/internet_connectivity_cubit.dart';
+import 'cubits/counter_cubit/counter_cubit.dart';
 
 import '../../independent_widgets/custom_snackbar.dart';
 import '../../independent_widgets/general_app_bar.dart';
+import 'cubits/internet_connectivity/internet_connectivity_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: const GeneralAppBar(title: Strings.homeScreenTitle),
-        body: _buildBody(context));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => InternetConnectivityCubit()),
+        BlocProvider(
+            //! context.read<CounterRepository>()
+            create: (context) => CounterCubit(context.read<CounterRepository>())),
+      ],
+      child: Builder(builder: (context) {
+        return Scaffold(
+            appBar: const GeneralAppBar(title: Strings.homeScreenTitle),
+            body: _buildBody(context));
+      }),
+    );
   }
 }
 

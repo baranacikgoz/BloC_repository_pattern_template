@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/constants/icons.dart';
 import '../../core/themes/app_theme.dart';
-import '../../logic/switch_theme/cubit/switch_theme_cubit.dart';
+import '../../switch_theme_cubit.dart';
 
 class GeneralAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;

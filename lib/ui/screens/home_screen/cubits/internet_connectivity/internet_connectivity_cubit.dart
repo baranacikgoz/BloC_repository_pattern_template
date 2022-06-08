@@ -5,7 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
-import '../../../core/constants/strings.dart';
+import '../../../../../core/constants/strings.dart';
 
 part 'internet_connectivity_state.dart';
 
@@ -13,8 +13,7 @@ class InternetConnectivityCubit extends Cubit<InternetConnectivityState> {
   late final StreamSubscription internetStatusSubscription;
 
   InternetConnectivityCubit()
-      : super(ConnectivityResultState(
-            connectivityResult: Strings.noInternetConnection)) {
+      : super(ConnectivityResultState(connectivityResult: Strings.noInternetConnection)) {
     _monitorInternetStatus();
   }
 

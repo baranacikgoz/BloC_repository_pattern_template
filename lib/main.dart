@@ -1,7 +1,7 @@
+import 'package:counter_repository/core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_project_template/repositories/counter_repository.dart';
 import 'core/themes/app_theme.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -9,9 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'core/constants/instances.dart';
 import 'core/constants/strings.dart';
 import 'core/debug/app_bloc_observer.dart';
-import 'logic/counter/cubit/counter_cubit.dart';
-import 'logic/internet_connectivity/cubit/internet_connectivity_cubit.dart';
-import 'logic/switch_theme/cubit/switch_theme_cubit.dart';
+import 'switch_theme_cubit.dart';
 import 'core/app_router/app_router.dart';
 
 Future<void> main() async {
@@ -36,9 +34,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(
-          //! Create Counter Repository instance
-          create: (context) => CounterRepository(),
+        //! Provide Counter Repository instance
+        RepositoryProvider.value(
+          value: CounterRepository.instance,
         ),
 
         //! Another repository comes here
@@ -48,12 +46,6 @@ class App extends StatelessWidget {
       ],
       child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => InternetConnectivityCubit()),
-
-            BlocProvider(
-                //! context.read<CounterRepository>()
-                create: (context) => CounterCubit(context.read<CounterRepository>())),
-
             // If Android/IOS theme of the device is light, start app with light theme,
             // else start app with dark theme
             osThemeIsLight

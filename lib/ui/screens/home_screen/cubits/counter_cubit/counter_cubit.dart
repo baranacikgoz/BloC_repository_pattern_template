@@ -1,4 +1,4 @@
-import 'package:flutter_project_template/repositories/counter_repository.dart';
+import 'package:counter_repository/core.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 //! Hydrated cubit will store counter's last value therefore it will remain

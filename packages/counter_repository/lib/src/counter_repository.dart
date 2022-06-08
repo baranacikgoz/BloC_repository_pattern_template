@@ -1,4 +1,9 @@
 class CounterRepository {
+  CounterRepository._();
+
+  // Singleton pattern
+  static final CounterRepository instance = CounterRepository._();
+
   // Take a value, increment it.
   int increment({required int valueToIncrement, required int incrementBy}) {
     // Return incremented value.
