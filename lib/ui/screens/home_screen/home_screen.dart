@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:has_wifi_rtt/has_wifi_rtt.dart';
 
 import '../../../core/app_router/app_router.dart';
 import '../../../core/app_router/screen_args.dart';
@@ -23,8 +22,6 @@ class HomeScreen extends StatelessWidget {
 }
 
 Widget _buildBody(BuildContext context) {
-  Future<bool> _hasWifiRtt = HasWifiRtt.checkRtt();
-
   return Column(
     children: [
       const Padding(padding: EdgeInsets.only(top: 50)),
@@ -50,28 +47,28 @@ Widget _buildBody(BuildContext context) {
       ),
       const Padding(padding: EdgeInsets.only(top: 20)),
 
-      //! Wi-Fi Rtt support check
-      FutureBuilder<bool>(
-          future: _hasWifiRtt,
-          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-            if (snapshot.hasData) {
-              return Column(
-                children: [
-                  Text(
-                    "Wi-Fi Rtt support: ${snapshot.data}",
-                    style: const TextStyle(fontSize: 20),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    "Using FutureBuilder",
-                    style: Theme.of(context).textTheme.bodySmall,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              );
-            }
-            return Container();
-          }),
+      // //! Wi-Fi Rtt support check
+      // FutureBuilder<bool>(
+      //     future: _hasWifiRtt,
+      //     builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+      //       if (snapshot.hasData) {
+      //         return Column(
+      //           children: [
+      //             Text(
+      //               "Wi-Fi Rtt support: ${snapshot.data}",
+      //               style: const TextStyle(fontSize: 20),
+      //               textAlign: TextAlign.center,
+      //             ),
+      //             Text(
+      //               "Using FutureBuilder",
+      //               style: Theme.of(context).textTheme.bodySmall,
+      //               textAlign: TextAlign.center,
+      //             ),
+      //           ],
+      //         );
+      //       }
+      //       return Container();
+      //     }),
 
       const Padding(padding: EdgeInsets.only(top: 50)),
 

@@ -170,13 +170,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  has_wifi_rtt:
-    dependency: "direct main"
-    description:
-      path: "packages/has_wifi_rtt"
-      relative: true
-    source: path
-    version: "1.0.0"
   hive:
     dependency: transitive
     description:
