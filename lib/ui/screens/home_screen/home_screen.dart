@@ -1,6 +1,8 @@
 import 'package:counter_repository/counter_repository.dart';
+import 'package:crypto_repository/crypto_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project_template/ui/screens/home_screen/cubits/crypto/crypto_cubit.dart';
 
 import '../../../core/app_router/app_router.dart';
 import '../../../core/app_router/screen_args.dart';
@@ -9,7 +11,6 @@ import '../../../core/constants/strings.dart';
 
 import '../../independent_widgets/custom_snackbar.dart';
 import '../../independent_widgets/general_app_bar.dart';
-import 'blocs/bloc/crypto_bloc.dart';
 import 'cubits/counter/counter_cubit.dart';
 import 'cubits/internet_connectivity/internet_connectivity_cubit.dart';
 
@@ -22,6 +23,7 @@ class HomeScreen extends StatelessWidget {
         BlocProvider(
             //! context.read<CounterRepository>()
             create: (context) => CounterCubit(context.read<CounterRepository>())),
+        BlocProvider(create: (context) => CryptoCubit(context.read<CryptoRepository>()))
       ],
       child: Builder(builder: (context) {
         return Scaffold(
@@ -58,6 +60,7 @@ Widget _buildBody(BuildContext context) {
       ),
       const Padding(padding: EdgeInsets.only(top: 20)),
 
+      //! Momentarily Crypto Data
       Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 8,
@@ -66,7 +69,7 @@ Widget _buildBody(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(padding: EdgeInsets.all(5)),
-            BlocConsumer<CryptoBloc, CryptoState>(
+            BlocConsumer<CryptoCubit, CryptoState>(
               listener: (context, state) {
                 if (state is ErrorCryptoData) {
                   CustomSnackbar.showSnackbarWithTimedMessage(
@@ -74,14 +77,14 @@ Widget _buildBody(BuildContext context) {
                 }
               },
               builder: (context, state) {
-                return BlocBuilder<CryptoBloc, CryptoState>(
+                return BlocBuilder<CryptoCubit, CryptoState>(
                   builder: (context, state) {
                     if (state is ReceivedCryptoData) {
                       final price = state.cryptoData.price;
                       final isIncreased = state.isIncreased;
 
                       return ListTile(
-                        title: const Text("BTC / USDT}",
+                        title: const Text("BTC / USDT",
                             maxLines: 1, style: TextStyle(fontSize: 25)),
                         subtitle: Text("$price",
                             overflow: TextOverflow.ellipsis,
@@ -91,27 +94,44 @@ Widget _buildBody(BuildContext context) {
                                 fontSize: 50,
                                 fontWeight: FontWeight.w300)),
                       );
-                    } else if (state is CryptoInitial) {
-                      return const ListTile(
-                        title: Text("BTC / USDT}",
-                            maxLines: 1, style: TextStyle(fontSize: 25)),
-                        subtitle: Text(Strings.refreshToSeeThePrice,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 50, fontWeight: FontWeight.w300)),
-                      );
                     } else if (state is FetchingCryptoData) {
-                      return const CircularProgressIndicator();
+                      return const ListTile(
+                          title: Text("BTC / USDT",
+                              maxLines: 1, style: TextStyle(fontSize: 25)),
+                          subtitle: Center(
+                            child: CircularProgressIndicator(),
+                          ));
                     }
 
-                    return const SizedBox();
+                    return const ListTile(
+                        title: Text("BTC / USDT",
+                            maxLines: 1, style: TextStyle(fontSize: 25)),
+                        subtitle: Text(
+                          Strings.refreshToSeeThePrice,
+                          overflow: TextOverflow.ellipsis,
+                        ));
                   },
                 );
               },
             ),
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              color: Theme.of(context).dividerColor,
+              height: 1,
+              width: double.infinity,
+            ),
+            Center(
+                child: IconButton(
+                    onPressed: () => context.read<CryptoCubit>().onRefreshRequest(),
+                    icon: const Icon(Icons.change_circle_outlined)))
           ],
         ),
       ),
-
+      Text(
+        "Using Crypto Repository",
+        style: Theme.of(context).textTheme.bodySmall,
+        textAlign: TextAlign.center,
+      ),
       const Padding(padding: EdgeInsets.only(top: 50)),
 
       //! Info about hydrated cubit

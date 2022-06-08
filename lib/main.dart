@@ -1,4 +1,5 @@
 import 'package:counter_repository/counter_repository.dart';
+import 'package:crypto_repository/crypto_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,10 +40,10 @@ class App extends StatelessWidget {
           value: CounterRepository.instance,
         ),
 
-        //! Another repository comes here
-        // RepositoryProvider(
-        //   create: (context) => AnotherRepository(),
-        // ),
+        //! Provide Counter Repository instance
+        RepositoryProvider.value(
+          value: CryptoRepository.instance,
+        ),
       ],
       child: MultiBlocProvider(
           providers: [

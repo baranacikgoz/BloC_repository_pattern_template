@@ -11,21 +11,21 @@ class BinanceApiException implements Exception {
     required this.message,
   });
 
-  factory BinanceApiException.fromCode(int code) {
-    log("ERROR CODE: $code");
+  factory BinanceApiException.fromCode(int statusCode) {
+    log("Status code: $statusCode");
 
-    if (code == 403) {
+    if (statusCode == 403) {
       return BinanceApiException(
           message: "WAF Limit (Web Application Firewall) has been violated");
-    } else if (code == 400) {
+    } else if (statusCode == 400) {
       return BinanceApiException(message: "Malformed request");
-    } else if (code == 429) {
+    } else if (statusCode == 429) {
       return BinanceApiException(
           message:
               "Request limit is exceeded, if you continue requesting, this IP will be auto-banned by Binance.");
-    } else if (code == 418) {
+    } else if (statusCode == 418) {
       return BinanceApiException(message: "This IP is auto-banned by Binance");
-    } else if (code >= 500 && code <= 599) {
+    } else if (statusCode >= 500 && statusCode <= 599) {
       return BinanceApiException(message: "Binance servers related error.");
     }
 
@@ -65,15 +65,15 @@ class CryptoRepository {
   }
 
   Future<String> _btcUsdtMomentaryData() async {
-    final http.Response response = await http
-        .get(Uri.parse("$_binanceBaseApiUrl/ticker/price?BTCUSDT"), headers: _headers);
+    final http.Response response = await http.get(
+        Uri.parse("$_binanceBaseApiUrl/ticker/price?symbol=BTCUSDT"),
+        headers: _headers);
 
     if (response.statusCode == 200) {
       return response.body;
     }
 
     log("BODY: ${response.body} ");
-    log("STATUS CODE: ${response.statusCode}");
     throw BinanceApiException.fromCode(response.statusCode);
   }
 }
