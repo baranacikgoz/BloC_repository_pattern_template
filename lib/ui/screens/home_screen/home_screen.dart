@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
 Widget _buildBody(BuildContext context) {
   return Column(
     children: [
-      const Padding(padding: EdgeInsets.only(top: 50)),
+      const Padding(padding: EdgeInsets.only(top: 30)),
 
       //! Internet connection type
       BlocBuilder<InternetConnectivityCubit, InternetConnectivityState>(
