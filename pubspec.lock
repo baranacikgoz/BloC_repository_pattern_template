@@ -102,7 +102,7 @@ packages:
   counter_repository:
     dependency: "direct main"
     description:
-      path: "packages/counter_repository"
+      path: "repositories/counter_repository"
       relative: true
     source: path
     version: "1.0.0"
