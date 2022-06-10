@@ -5,8 +5,9 @@
 * Repository pattern and repository provider
 * Theme switching
 * Advanced Routing
-* Bloc Observer for debugging
+* Replay Cubit to undo and redo changes
 * Hydrated Cubit for holding value even you close app
+* Bloc Observer for debugging
 * Stream Subscription example
 * Future Builder example
 * Routing example with passing data to another screen
