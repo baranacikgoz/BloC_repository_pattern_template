@@ -1,5 +1,7 @@
 # Flutter Template Using BloC and Repository Pattern
 
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
+
 https://user-images.githubusercontent.com/52239507/173063367-c0a1b25b-00ee-49cc-8118-8425787d3479.mp4
 
 ## Implementations
@@ -12,6 +14,7 @@ https://user-images.githubusercontent.com/52239507/173063367-c0a1b25b-00ee-49cc-
 * Stream Subscription example
 * Future Builder example
 * Routing example with passing data to another screen
+* 'Very good analysis' linting
 
 and more.
 ## How to change app name in order to use it
