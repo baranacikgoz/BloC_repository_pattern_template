@@ -3,7 +3,7 @@
 https://user-images.githubusercontent.com/52239507/173063367-c0a1b25b-00ee-49cc-8118-8425787d3479.mp4
 
 ## Implementations
-* Repository pattern and repository provider
+* Repository pattern, singleton pattern and repository provider
 * Replay Cubit to undo and redo changes
 * Hydrated Cubit for holding value even you close app
 * Theme switching
