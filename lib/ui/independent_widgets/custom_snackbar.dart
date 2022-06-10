@@ -25,7 +25,7 @@ class CustomSnackbar {
           label: actionMessage,
           onPressed: function == null
               ? () => _removeCurrentSnackbar(context: context)
-              : () => function,
+              : () => function(),
         ),
       ),
     );
