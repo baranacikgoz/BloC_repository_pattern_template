@@ -1,6 +1,7 @@
 # Flutter Template Using BloC and Repository Pattern
 
-[video](assets/example.mp4)
+https://user-images.githubusercontent.com/52239507/173063367-c0a1b25b-00ee-49cc-8118-8425787d3479.mp4
+
 ## Implementations
 * Replay Cubit to undo and redo changes
 * Repository pattern and repository provider
