@@ -28,8 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   connectivity_plus: ^2.3.0
-  counter_repository:
-    path: repositories/counter_repository
+  
   crypto_repository:
     path: repositories/crypto_repository
   cupertino_icons: ^1.0.2
