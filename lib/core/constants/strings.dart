@@ -11,8 +11,11 @@ class Strings {
 
   static const onDecrementedText = 'Decremented';
 
-  static const counterValueInfo =
-      'This counter value will remain the same even if you close and re-open app since it is an hydrated cubit.';
+  static const counterHydratedInfo =
+      'The counter value will remain the same even if you kill the app since it is an hydrated cubit.';
+
+  static const counterReplayInfo =
+      "You can undo and redo the last change since it is an also a replay cubit.";
 
   static const usingRepositoryAndBloc = "Using Repository Pattern & BlocBuilder";
 
@@ -24,6 +27,8 @@ class Strings {
   static const btcUsdt = "BTC / USDT";
 
   static const defaultSnackbarActionMessage = "Dismiss";
+
+  static const snackBarUndoMessage = "UNDO";
 
   static const routeExceptionMessage = 'Route error!';
 
