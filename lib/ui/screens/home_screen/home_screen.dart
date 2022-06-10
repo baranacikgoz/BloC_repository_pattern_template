@@ -54,7 +54,7 @@ Widget _buildBody(BuildContext context) {
         },
       ),
       Text(
-        "Using StreamSubsription",
+        Strings.usingStreamSubscription,
         style: Theme.of(context).textTheme.bodySmall,
         textAlign: TextAlign.center,
       ),
@@ -84,7 +84,7 @@ Widget _buildBody(BuildContext context) {
                       final isIncreased = state.isIncreased;
 
                       return ListTile(
-                        title: const Text("BTC / USDT",
+                        title: const Text(Strings.btcUsdt,
                             maxLines: 1, style: TextStyle(fontSize: 25)),
                         subtitle: Text("$price",
                             overflow: TextOverflow.ellipsis,
@@ -96,7 +96,7 @@ Widget _buildBody(BuildContext context) {
                       );
                     } else if (state is FetchingCryptoData) {
                       return const ListTile(
-                          title: Text("BTC / USDT",
+                          title: Text(Strings.btcUsdt,
                               maxLines: 1, style: TextStyle(fontSize: 25)),
                           subtitle: Center(
                             child: CircularProgressIndicator(),
@@ -104,7 +104,7 @@ Widget _buildBody(BuildContext context) {
                     }
 
                     return const ListTile(
-                        title: Text("BTC / USDT",
+                        title: Text(Strings.btcUsdt,
                             maxLines: 1, style: TextStyle(fontSize: 25)),
                         subtitle: Text(
                           Strings.refreshToSeeThePrice,
@@ -128,7 +128,7 @@ Widget _buildBody(BuildContext context) {
         ),
       ),
       Text(
-        "Using Repository Pattern & BlocBuilder",
+        Strings.usingRepositoryAndBloc,
         style: Theme.of(context).textTheme.bodySmall,
         textAlign: TextAlign.center,
       ),

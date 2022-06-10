@@ -14,8 +14,14 @@ class Strings {
   static const counterValueInfo =
       'This counter value will remain the same even if you close and re-open app since it is an hydrated cubit.';
 
+  static const usingRepositoryAndBloc = "Using Repository Pattern & BlocBuilder";
+
+  static const usingStreamSubscription = "Using StreamSubsription";
+
   static const secondScreenInfo =
       "This is the second screen. The counter value is passed via screen args.";
+
+  static const btcUsdt = "BTC / USDT";
 
   static const defaultSnackbarActionMessage = "Dismiss";
 
