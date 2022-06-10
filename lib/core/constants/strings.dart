@@ -30,6 +30,8 @@ class Strings {
 
   static const snackBarUndoMessage = "UNDO";
 
+  static const snackBarRedoMessage = "REDO";
+
   static const routeExceptionMessage = 'Route error!';
 
   static const connectedWithWifi = 'Wi-Fi';

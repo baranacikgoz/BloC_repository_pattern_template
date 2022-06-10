@@ -173,7 +173,16 @@ Widget _buildBody(BuildContext context) {
                     context: context,
                     message: Strings.onDecrementedText,
                     actionMessage: Strings.snackBarUndoMessage,
-                    function: context.read<CounterCubit>().undo,
+                    function: () {
+                      context.read<CounterCubit>().undo();
+
+                      CustomSnackbar.showSnackbarWithAction(
+                        context: context,
+                        message: "Undid successfully.",
+                        actionMessage: Strings.snackBarRedoMessage,
+                        function: context.read<CounterCubit>().redo,
+                      );
+                    },
                   );
                 }),
             FloatingActionButton(
@@ -186,7 +195,16 @@ Widget _buildBody(BuildContext context) {
                     context: context,
                     message: Strings.onIncrementedText,
                     actionMessage: Strings.snackBarUndoMessage,
-                    function: context.read<CounterCubit>().undo,
+                    function: () {
+                      context.read<CounterCubit>().undo();
+
+                      CustomSnackbar.showSnackbarWithAction(
+                        context: context,
+                        message: "Undid successfully.",
+                        actionMessage: Strings.snackBarRedoMessage,
+                        function: context.read<CounterCubit>().redo,
+                      );
+                    },
                   );
                 }),
           ],
