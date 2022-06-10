@@ -15,12 +15,17 @@ class CustomSnackbar {
       {required BuildContext context,
       required String message,
       String actionMessage = Strings.defaultSnackbarActionMessage,
-      Function? function}) {
-    _removeCurrentSnackbar(context: context);
+      Function? function,
+      bool removeCurrent = true,
+      int milliseconds = 2500}) {
+    if (removeCurrent) {
+      _removeCurrentSnackbar(context: context);
+    }
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
+        duration: Duration(milliseconds: milliseconds),
         action: SnackBarAction(
           label: actionMessage,
           onPressed: function == null

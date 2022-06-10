@@ -177,6 +177,7 @@ Widget _buildBody(BuildContext context) {
                       context.read<CounterCubit>().undo();
 
                       CustomSnackbar.showSnackbarWithAction(
+                        removeCurrent: false,
                         context: context,
                         message: "Undid successfully.",
                         actionMessage: Strings.snackBarRedoMessage,
@@ -199,6 +200,7 @@ Widget _buildBody(BuildContext context) {
                       context.read<CounterCubit>().undo();
 
                       CustomSnackbar.showSnackbarWithAction(
+                        removeCurrent: false,
                         context: context,
                         message: "Undid successfully.",
                         actionMessage: Strings.snackBarRedoMessage,
