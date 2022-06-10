@@ -2,10 +2,10 @@
 <img src="assets/app_demo.gif" alt="Demo gif" width=300 height=650/>  
 
 ## Implementations
+* Replay Cubit to undo and redo changes
 * Repository pattern and repository provider
 * Theme switching
 * Advanced Routing
-* Replay Cubit to undo and redo changes
 * Hydrated Cubit for holding value even you close app
 * Bloc Observer for debugging
 * Stream Subscription example
