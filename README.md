@@ -1,5 +1,5 @@
 # Flutter Template Using BloC and Repository Pattern
-<img src="assets/example.mp4" alt="Example video" width=300 height=650/>  
+<video src="assets/example.mp4" alt="Example video" width=300 height=650/>  
 
 ## Implementations
 * Replay Cubit to undo and redo changes
