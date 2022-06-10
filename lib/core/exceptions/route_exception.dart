@@ -1,5 +1,8 @@
+/// Route exception class.
 class RouteException implements Exception {
-  final String message;
+  /// Constructor.
+  const RouteException({required this.message});
 
-  const RouteException(this.message);
+  /// Exception message
+  final String message;
 }

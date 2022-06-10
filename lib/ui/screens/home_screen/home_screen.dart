@@ -1,18 +1,17 @@
 import 'package:crypto_repository/crypto_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project_template/core/app_router/app_router.dart';
+import 'package:flutter_project_template/core/app_router/screen_args.dart';
+import 'package:flutter_project_template/core/constants/icons.dart';
+import 'package:flutter_project_template/core/constants/strings.dart';
+import 'package:flutter_project_template/ui/independent_widgets/custom_snackbar.dart';
+import 'package:flutter_project_template/ui/independent_widgets/general_app_bar.dart';
+import 'package:flutter_project_template/ui/screens/home_screen/cubits/counter/counter_cubit.dart';
 import 'package:flutter_project_template/ui/screens/home_screen/cubits/crypto/crypto_cubit.dart';
+import 'package:flutter_project_template/ui/screens/home_screen/cubits/internet_connectivity/internet_connectivity_cubit.dart';
 
-import '../../../core/app_router/app_router.dart';
-import '../../../core/app_router/screen_args.dart';
-import '../../../core/constants/icons.dart';
-import '../../../core/constants/strings.dart';
-
-import '../../independent_widgets/custom_snackbar.dart';
-import '../../independent_widgets/general_app_bar.dart';
-import 'cubits/counter/counter_cubit.dart';
-import 'cubits/internet_connectivity/internet_connectivity_cubit.dart';
-
+/// Home screen
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,15 +19,21 @@ class HomeScreen extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => InternetConnectivityCubit()),
         BlocProvider(
-            //! context.read<CounterRepository>()
-            create: (context) => CounterCubit()),
-        BlocProvider(create: (context) => CryptoCubit(context.read<CryptoRepository>()))
+          //! context.read<CounterRepository>()
+          create: (context) => CounterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CryptoCubit(context.read<CryptoRepository>()),
+        )
       ],
-      child: Builder(builder: (context) {
-        return Scaffold(
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
             appBar: const GeneralAppBar(title: Strings.homeScreenTitle),
-            body: _buildBody(context));
-      }),
+            body: _buildBody(context),
+          );
+        },
+      ),
     );
   }
 }
@@ -44,7 +49,7 @@ Widget _buildBody(BuildContext context) {
           builder: (context, state) {
             if (state is ConnectivityResultState) {
               return Text(
-                "Connection Type: ${state.connectivityResult}",
+                'Connection Type: ${state.connectivityResult}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleLarge,
               );
@@ -62,7 +67,9 @@ Widget _buildBody(BuildContext context) {
 
         //! Momentarily Crypto Data
         Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           elevation: 8,
           margin: const EdgeInsets.only(left: 7, top: 6, bottom: 12, right: 7),
           child: Column(
@@ -73,7 +80,9 @@ Widget _buildBody(BuildContext context) {
                 listener: (context, state) {
                   if (state is ErrorCryptoData) {
                     CustomSnackbar.showSnackbarWithTimedMessage(
-                        context: context, message: state.message);
+                      context: context,
+                      message: state.message,
+                    );
                   }
                 },
                 builder: (context, state) {
@@ -84,32 +93,45 @@ Widget _buildBody(BuildContext context) {
                         final isIncreased = state.isIncreased;
 
                         return ListTile(
-                          title: const Text(Strings.btcUsdt,
-                              maxLines: 1, style: TextStyle(fontSize: 25)),
-                          subtitle: Text("$price",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color:
-                                      isIncreased ? Colors.greenAccent : Colors.redAccent,
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w300)),
+                          title: const Text(
+                            Strings.btcUsdt,
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          subtitle: Text(
+                            '$price',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: isIncreased ? Colors.greenAccent : Colors.redAccent,
+                              fontSize: 50,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
                         );
                       } else if (state is FetchingCryptoData) {
                         return const ListTile(
-                            title: Text(Strings.btcUsdt,
-                                maxLines: 1, style: TextStyle(fontSize: 25)),
-                            subtitle: Center(
-                              child: CircularProgressIndicator(),
-                            ));
+                          title: Text(
+                            Strings.btcUsdt,
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          subtitle: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
                       }
 
                       return const ListTile(
-                          title: Text(Strings.btcUsdt,
-                              maxLines: 1, style: TextStyle(fontSize: 25)),
-                          subtitle: Text(
-                            Strings.refreshToSeeThePrice,
-                            overflow: TextOverflow.ellipsis,
-                          ));
+                        title: Text(
+                          Strings.btcUsdt,
+                          maxLines: 1,
+                          style: TextStyle(fontSize: 25),
+                        ),
+                        subtitle: Text(
+                          Strings.refreshToSeeThePriceText,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      );
                     },
                   );
                 },
@@ -121,9 +143,11 @@ Widget _buildBody(BuildContext context) {
                 width: double.infinity,
               ),
               Center(
-                  child: IconButton(
-                      onPressed: () => context.read<CryptoCubit>().onRefreshRequest(),
-                      icon: const Icon(Icons.change_circle_outlined)))
+                child: IconButton(
+                  onPressed: () => context.read<CryptoCubit>().onRefreshRequest(),
+                  icon: const Icon(Icons.change_circle_outlined),
+                ),
+              )
             ],
           ),
         ),
@@ -146,7 +170,7 @@ Widget _buildBody(BuildContext context) {
         BlocBuilder<CounterCubit, int>(
           builder: (context, state) {
             return Text(
-              "$state",
+              '$state',
               style: const TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             );
@@ -164,51 +188,53 @@ Widget _buildBody(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             FloatingActionButton(
-                heroTag: "decrement",
-                child: AppIcons.decrement,
-                onPressed: () {
-                  context.read<CounterCubit>().onDecrement();
+              heroTag: 'decrement',
+              child: AppIcons.decrement,
+              onPressed: () {
+                context.read<CounterCubit>().onDecrement();
 
-                  CustomSnackbar.showSnackbarWithAction(
-                    context: context,
-                    message: Strings.onDecrementedText,
-                    actionMessage: Strings.snackBarUndoMessage,
-                    function: () {
-                      context.read<CounterCubit>().undo();
+                CustomSnackbar.showSnackbarWithAction(
+                  context: context,
+                  message: Strings.onDecrementedText,
+                  actionMessage: Strings.snackBarUndoMessage,
+                  onPressedAction: () {
+                    context.read<CounterCubit>().undo();
 
-                      CustomSnackbar.showSnackbarWithAction(
-                        removeCurrent: false,
-                        context: context,
-                        message: "Undid successfully",
-                        actionMessage: Strings.snackBarRedoMessage,
-                        function: context.read<CounterCubit>().redo,
-                      );
-                    },
-                  );
-                }),
+                    CustomSnackbar.showSnackbarWithAction(
+                      removeCurrent: false,
+                      context: context,
+                      message: 'Undid successfully',
+                      actionMessage: Strings.snackBarRedoMessage,
+                      onPressedAction: () => context.read<CounterCubit>().redo(),
+                    );
+                  },
+                );
+              },
+            ),
             FloatingActionButton(
-                heroTag: "increment",
-                child: AppIcons.increment,
-                onPressed: () {
-                  context.read<CounterCubit>().onIncrement();
+              heroTag: 'increment',
+              child: AppIcons.increment,
+              onPressed: () {
+                context.read<CounterCubit>().onIncrement();
 
-                  CustomSnackbar.showSnackbarWithAction(
-                    context: context,
-                    message: Strings.onIncrementedText,
-                    actionMessage: Strings.snackBarUndoMessage,
-                    function: () {
-                      context.read<CounterCubit>().undo();
+                CustomSnackbar.showSnackbarWithAction(
+                  context: context,
+                  message: Strings.onIncrementedText,
+                  actionMessage: Strings.snackBarUndoMessage,
+                  onPressedAction: () {
+                    context.read<CounterCubit>().undo();
 
-                      CustomSnackbar.showSnackbarWithAction(
-                        removeCurrent: false,
-                        context: context,
-                        message: "Undid successfully",
-                        actionMessage: Strings.snackBarRedoMessage,
-                        function: context.read<CounterCubit>().redo,
-                      );
-                    },
-                  );
-                }),
+                    CustomSnackbar.showSnackbarWithAction(
+                      removeCurrent: false,
+                      context: context,
+                      message: 'Undid successfully',
+                      actionMessage: Strings.snackBarRedoMessage,
+                      onPressedAction: () => context.read<CounterCubit>().redo(),
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
         const Padding(padding: EdgeInsets.only(top: 10)),
@@ -222,18 +248,22 @@ Widget _buildBody(BuildContext context) {
 
         //! Go to second screen button
         TextButton(
-            onPressed: () => AppRouter.pushWithArgument(
-                context: context,
-                pageName: AppRouter.secondScreen,
-                args: SecondScreenArgs(counterValue: context.read<CounterCubit>().state)),
-            child: const Text(
-              Strings.goToSecondScreenText,
-              textAlign: TextAlign.center,
-              //style: Theme.of(context).primaryTextTheme.titleSmall
+          onPressed: () => AppRouter.pushWithArgument(
+            context: context,
+            pageName: AppRouter.secondScreen,
+            args: SecondScreenArgs(
+              counterValue: context.read<CounterCubit>().state,
             ),
-            style: Theme.of(context).textButtonTheme.style),
+          ),
+          style: Theme.of(context).textButtonTheme.style,
+          child: const Text(
+            Strings.goToSecondScreenText,
+            textAlign: TextAlign.center,
+            //style: Theme.of(context).primaryTextTheme.titleSmall
+          ),
+        ),
         Text(
-          "Using Router",
+          'Using Router',
           style: Theme.of(context).textTheme.bodySmall,
           textAlign: TextAlign.center,
         ),

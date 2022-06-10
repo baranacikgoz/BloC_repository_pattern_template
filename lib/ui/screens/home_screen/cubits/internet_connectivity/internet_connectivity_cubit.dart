@@ -3,26 +3,26 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_project_template/core/constants/strings.dart';
 import 'package:meta/meta.dart';
-
-import '../../../../../core/constants/strings.dart';
 
 part 'internet_connectivity_state.dart';
 
+/// Internet connectivitiy cubit will track connection state.
 class InternetConnectivityCubit extends Cubit<InternetConnectivityState> {
-  late final StreamSubscription internetStatusSubscription;
-
+  /// Constructor.
   InternetConnectivityCubit()
-      : super(ConnectivityResultState(connectivityResult: Strings.noInternetConnection)) {
+      : super(
+          ConnectivityResultState(connectivityResult: Strings.noInternetConnectionText),
+        ) {
     _monitorInternetStatus();
   }
 
-  _monitorInternetStatus() {
-    return internetStatusSubscription =
-        Connectivity().onConnectivityChanged.listen((status) {
-      //! Emit status
-      _deserializeAndEmit(status);
-    });
+  late final StreamSubscription<ConnectivityResult> _internetStatusSubscription;
+
+  StreamSubscription<ConnectivityResult> _monitorInternetStatus() {
+    return _internetStatusSubscription =
+        Connectivity().onConnectivityChanged.listen(_deserializeAndEmit);
   }
 
   void _deserializeAndEmit(ConnectivityResult _status) {
@@ -30,16 +30,16 @@ class InternetConnectivityCubit extends Cubit<InternetConnectivityState> {
       case ConnectivityResult.bluetooth:
         break;
       case ConnectivityResult.wifi:
-        _emitConnectivityResult(Strings.connectedWithWifi);
+        _emitConnectivityResult(Strings.connectedWithWifiText);
         break;
       case ConnectivityResult.ethernet:
-        _emitConnectivityResult(Strings.connectedWithEthernet);
+        _emitConnectivityResult(Strings.connectedWithEthernetText);
         break;
       case ConnectivityResult.mobile:
-        _emitConnectivityResult(Strings.connectedWithCellular);
+        _emitConnectivityResult(Strings.connectedWithCellularText);
         break;
       case ConnectivityResult.none:
-        _emitConnectivityResult(Strings.noInternetConnection);
+        _emitConnectivityResult(Strings.noInternetConnectionText);
         break;
     }
   }
@@ -50,7 +50,7 @@ class InternetConnectivityCubit extends Cubit<InternetConnectivityState> {
 
   @override
   Future<void> close() {
-    internetStatusSubscription.cancel();
+    _internetStatusSubscription.cancel();
     return super.close();
   }
 }

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/app_router/screen_args.dart';
-import '../../../core/constants/strings.dart';
-import '../../independent_widgets/general_app_bar.dart';
+import 'package:flutter_project_template/core/app_router/screen_args.dart';
+import 'package:flutter_project_template/core/constants/strings.dart';
+import 'package:flutter_project_template/ui/independent_widgets/general_app_bar.dart';
 
+/// The second screen.
 class SecondScreen extends StatelessWidget {
-  final SecondScreenArgs args;
-
+  /// Constructor.
   const SecondScreen({
     Key? key,
     required this.args,
   }) : super(key: key);
+
+  /// Screen args.
+  final SecondScreenArgs args;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ Column _buildBody(BuildContext context, int value) {
       ),
       const Padding(padding: EdgeInsets.only(top: 100)),
       Text(
-        "Counter value: $value",
+        'Counter value: $value',
         style: Theme.of(context).textTheme.bodyLarge,
       )
     ],

@@ -2,15 +2,14 @@ import 'package:crypto_repository/crypto_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/themes/app_theme.dart';
+import 'package:flutter_project_template/core/app_router/app_router.dart';
+import 'package:flutter_project_template/core/constants/instances.dart';
+import 'package:flutter_project_template/core/constants/strings.dart';
+import 'package:flutter_project_template/core/debug/app_bloc_observer.dart';
+import 'package:flutter_project_template/core/themes/app_theme.dart';
+import 'package:flutter_project_template/switch_theme_cubit.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'core/constants/instances.dart';
-import 'core/constants/strings.dart';
-import 'core/debug/app_bloc_observer.dart';
-import 'switch_theme_cubit.dart';
-import 'core/app_router/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,14 +20,21 @@ Future<void> main() async {
         : await getApplicationDocumentsDirectory(),
   );
 
-  HydratedBlocOverrides.runZoned(() => runApp(App()),
-      storage: storage, blocObserver: AppBlocObserver());
+  HydratedBlocOverrides.runZoned(
+    () => runApp(App()),
+    storage: storage,
+    blocObserver: AppBlocObserver(),
+  );
 }
 
+/// App class.
 class App extends StatelessWidget {
+  /// Constructor.
+  App({Key? key}) : super(key: key);
+
+  /// Determines whether device's os is using dark theme or light.
   final osThemeIsLight =
       schedularBindingInstance.window.platformBrightness == Brightness.light;
-  App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +46,24 @@ class App extends StatelessWidget {
         ),
       ],
       child: MultiBlocProvider(
-          providers: [
-            // If Android/IOS theme of the device is light, start app with light theme,
-            // else start app with dark theme
-            osThemeIsLight
-                ? BlocProvider(
-                    create: (context) =>
-                        SwitchThemeCubit(initialTheme: AppTheme.lightTheme))
-                : BlocProvider(
-                    create: (context) =>
-                        SwitchThemeCubit(initialTheme: AppTheme.darkTheme))
-          ],
-          child: Builder(builder: (context) {
+        providers: [
+          // If Android/IOS theme of the device is light, start app with light theme,
+          // else start app with dark theme
+
+          // ignore: prefer_if_elements_to_conditional_expressions
+          osThemeIsLight
+              ? BlocProvider(
+                  create: (context) =>
+                      SwitchThemeCubit(initialTheme: AppTheme.lightTheme),
+                )
+              : BlocProvider(
+                  create: (context) => SwitchThemeCubit(
+                    initialTheme: AppTheme.darkTheme,
+                  ),
+                )
+        ],
+        child: Builder(
+          builder: (context) {
             return MaterialApp(
               title: Strings.appTitle,
               theme: context.watch<SwitchThemeCubit>().state,
@@ -59,7 +71,9 @@ class App extends StatelessWidget {
               initialRoute: AppRouter.homeScreen,
               onGenerateRoute: AppRouter.onGenerateRoute,
             );
-          })),
+          },
+        ),
+      ),
     );
   }
 }

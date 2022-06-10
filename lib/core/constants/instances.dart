@@ -1,4 +1,4 @@
 import 'package:flutter/scheduler.dart';
 
-// SchedularBinding instance
+/// SchedularBinding instance
 final schedularBindingInstance = SchedulerBinding.instance;

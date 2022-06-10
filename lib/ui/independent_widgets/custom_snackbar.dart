@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/strings.dart';
+import 'package:flutter_project_template/core/constants/strings.dart';
 
+/// Custom snackbar class to manage all snackbars from here.
 class CustomSnackbar {
   const CustomSnackbar._();
 
   /// Shows snackbar with action button.
   ///
-  /// Function is null by default. By default, snackbar will disappear after
+
+  /// By default, snackbar will disappear after
   /// clicking action.
   ///
   /// Action message is ```Strings.defaultSnackbarActionMessage``` by default
-  static void showSnackbarWithAction(
-      {required BuildContext context,
-      required String message,
-      String actionMessage = Strings.defaultSnackbarActionMessage,
-      Function? function,
-      bool removeCurrent = true,
-      int milliseconds = 2500}) {
+  static void showSnackbarWithAction({
+    required BuildContext context,
+    required String message,
+    String actionMessage = Strings.defaultSnackbarActionMessage,
+    required VoidCallback onPressedAction,
+    bool removeCurrent = true,
+    int milliseconds = 2500,
+  }) {
     if (removeCurrent) {
       _removeCurrentSnackbar(context: context);
     }
@@ -28,17 +31,18 @@ class CustomSnackbar {
         duration: Duration(milliseconds: milliseconds),
         action: SnackBarAction(
           label: actionMessage,
-          onPressed: function == null
-              ? () => _removeCurrentSnackbar(context: context)
-              : () => function(),
+          onPressed: onPressedAction,
         ),
       ),
     );
   }
 
   /// Shows snackbar with message only, no action button.
-  static void showSnackbarWithTimedMessage(
-      {required BuildContext context, required String message, int milliseconds = 2500}) {
+  static void showSnackbarWithTimedMessage({
+    required BuildContext context,
+    required String message,
+    int milliseconds = 2500,
+  }) {
     _removeCurrentSnackbar(context: context);
 
     ScaffoldMessenger.of(context).showSnackBar(

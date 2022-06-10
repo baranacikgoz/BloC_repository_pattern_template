@@ -1,7 +1,13 @@
-class SecondScreenArgs {
-  final int counterValue;
+/// Base class for screen args.
+abstract class ScreenArgs {}
 
-  const SecondScreenArgs({
+/// Second screen args.
+class SecondScreenArgs extends ScreenArgs {
+  /// Constructor
+  SecondScreenArgs({
     required this.counterValue,
   });
+
+  /// Counter value passed.
+  final int counterValue;
 }
