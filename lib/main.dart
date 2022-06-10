@@ -1,4 +1,3 @@
-import 'package:counter_repository/counter_repository.dart';
 import 'package:crypto_repository/crypto_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +34,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        //! Provide Counter Repository instance
-        RepositoryProvider.value(
-          value: CounterRepository.instance,
-        ),
-
-        //! Provide Counter Repository instance
+        //! Provide Crypto Repository instance
         RepositoryProvider.value(
           value: CryptoRepository.instance,
         ),

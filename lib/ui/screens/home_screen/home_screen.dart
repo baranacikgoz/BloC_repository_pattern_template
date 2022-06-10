@@ -1,4 +1,3 @@
-import 'package:counter_repository/counter_repository.dart';
 import 'package:crypto_repository/crypto_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +21,7 @@ class HomeScreen extends StatelessWidget {
         BlocProvider(create: (context) => InternetConnectivityCubit()),
         BlocProvider(
             //! context.read<CounterRepository>()
-            create: (context) => CounterCubit(context.read<CounterRepository>())),
+            create: (context) => CounterCubit()),
         BlocProvider(create: (context) => CryptoCubit(context.read<CryptoRepository>()))
       ],
       child: Builder(builder: (context) {
@@ -157,6 +156,7 @@ Widget _buildBody(BuildContext context) {
         style: Theme.of(context).textTheme.bodySmall,
         textAlign: TextAlign.center,
       ),
+
       //! Increment and decrement buttons
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -166,20 +166,26 @@ Widget _buildBody(BuildContext context) {
               child: AppIcons.decrement,
               onPressed: () {
                 context.read<CounterCubit>().onDecrement();
-                CustomSnackbar.showSnackbarWithTimedMessage(
-                    context: context,
-                    message: Strings.onDecrementedText,
-                    milliseconds: 1500);
+
+                CustomSnackbar.showSnackbarWithAction(
+                  context: context,
+                  message: Strings.onDecrementedText,
+                  actionMessage: "UNDO",
+                  function: context.read<CounterCubit>().undo,
+                );
               }),
           FloatingActionButton(
               heroTag: "increment",
               child: AppIcons.increment,
               onPressed: () {
                 context.read<CounterCubit>().onIncrement();
-                CustomSnackbar.showSnackbarWithTimedMessage(
-                    context: context,
-                    message: Strings.onIncrementedText,
-                    milliseconds: 1500);
+
+                CustomSnackbar.showSnackbarWithAction(
+                  context: context,
+                  message: Strings.onIncrementedText,
+                  actionMessage: "UNDO",
+                  function: context.read<CounterCubit>().undo,
+                );
               }),
         ],
       ),
