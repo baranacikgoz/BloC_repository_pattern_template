@@ -128,7 +128,7 @@ Widget _buildBody(BuildContext context) {
         ),
       ),
       Text(
-        "Using Crypto Repository",
+        "Using Repository Pattern & BlocBuilder",
         style: Theme.of(context).textTheme.bodySmall,
         textAlign: TextAlign.center,
       ),
@@ -153,7 +153,7 @@ Widget _buildBody(BuildContext context) {
         },
       ),
       Text(
-        "Using BlocBuilder",
+        "Using Repository Pattern & BlocBuilder",
         style: Theme.of(context).textTheme.bodySmall,
         textAlign: TextAlign.center,
       ),
