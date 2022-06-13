@@ -13,6 +13,9 @@ import 'package:flutter_project_template/ui/screens/home_screen/cubits/internet_
 
 /// Home screen
 class HomeScreen extends StatelessWidget {
+  /// Home screen constructor.
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

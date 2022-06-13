@@ -20,7 +20,7 @@ class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case homeScreen:
-        return MaterialPageRoute<dynamic>(builder: (_) => HomeScreen());
+        return MaterialPageRoute<dynamic>(builder: (_) => const HomeScreen());
 
       case secondScreen:
         assert(settings.arguments != null, "Screen args can't be null");
