@@ -17,24 +17,12 @@ https://user-images.githubusercontent.com/52239507/173063367-c0a1b25b-00ee-49cc-
 * 'Very good analysis' linting
 
 and more.
-## How to change app name in order to use it
 
-#### Android
-Open ```AndroidManifest.xml``` located at ```android/app/src/main```
-```
-<application
-    android:label="App Name" ...> // Your app name here
-```
+## Example Usage
+````
+> dart pub global activate use_template
+````
 
-#### IOS
-Open ```info.plist``` located at ```ios/Runner```
-```
-<key>CFBundleName</key>
-<string>App Name</string> // Your app name here
-```
-<hr>  
-
-***And than***  ```flutter clean```
-
-### Contributing
-Feel free to make contributions and pull requests.
+````
+> use_template my_new_app_name https://github.com/baranacikgoz/BloC_repository_pattern_template C:\users\baran\Software\
+````
